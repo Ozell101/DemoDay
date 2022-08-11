@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Finance Guru</title>
+    <style>
+        
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <form>
+        <div class="Title">
+             <h1> Finanace Guru<img src="Images/bird2.gif" width="100"></h1>
+        </div>
+         <div class="Change">
+            <div class="Place">
+            <label for="Where">Where did you get it/them?</label>
+            <input type="text" id="Where" placeholder="Place you got your item(s)">
+         </div>
+         <div class="Item">
+            <label for="Thing">What did you get?</label>
+            <input type="text" id="Thing" placeholder="Thing(s) you bought"/>
+         </div>
+         <div class="How">
+            <label for="Define">How much did it cost?</label>
+            <input type="text" id="Define" placeholder="Price of that thing(s)">
+         </div>
+         <div class="formBox">
+            <label for="Time">Date</label>
+            <input type="date" id="Time" />
+         </div>
+        </div>
+        
+        <div class="formBox">
+            <button id="btn">submit</button>
+        </div>
+        <div>
+            <label for="dark"></label>
+        </div>
+        <div id="msg">
+            <pre></pre>
+        </div>
+        
+    </form>
+    <script>
+        let movies = [];
+        // example {id:1592304983049, title: 'Deadpool', year: 2015}
+        const addMovie = (ev)=>{
+            ev.preventDefault();  //to stop the form submitting
+            let movie = {
+                id: Date.now(),
+                Where: document.getElementById('Where').value,
+                Item: document.getElementById('Thing').value,
+                Price: document.getElementById('Define').value,
+                Time: document.getElementById('Time').value
+            }
+            movies.push(movie);
+            document.forms[0].reset(); // to clear the form for the next entries
+            //document.querySelector('form').reset();
+
+            //for display purposes only
+            console.warn('added' , {movies} );
+            let pre = document.querySelector('#msg pre');
+            pre.textContent = '\n' + JSON.stringify(movies, '\t', 2);
+
+            //saving to localStorage
+            localStorage.setItem('MyMovieList', JSON.stringify(movies) );
+        }
+        document.addEventListener('DOMContentLoaded', ()=>{
+            document.getElementById('btn').addEventListener('click', addMovie);
+        });
+    </script>
+</body>
+</html>
